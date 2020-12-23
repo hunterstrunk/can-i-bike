@@ -1,20 +1,75 @@
 var today = new Date();
-var WeatherEl = document.querySelector('#weather');
+var weatherEl = document.querySelector('#weather');
+var bikeEl = document.querySelector('#bikes');
 var cityNameInputEl = document.querySelector("#city-name");
 var cityFormEl = document.querySelector("#city-form");
+var cityname;
+var stationLongitude;
+var stationLatitude;
 
 var formSubmitHandler = function (event) {
     event.preventDefault();
     // get city name value from input element
-    var cityname = cityNameInputEl.value.trim();
+    cityname = cityNameInputEl.value.trim();
 
-    // Set city name in local storage and generate history buttons
     if (cityname) {
         getWeatherInfo(cityname);
         cityNameInputEl.value = "";
     }
     else {
         alert("Please enter a City name");
+    }
+
+}
+
+// Get City Bike information
+var getBikeInfo = function () {
+    console.log(cityname);
+
+    var apiCityBikeUrl = " http://api.citybik.es/v2/networks?fields=id,name,href,location,company";
+    //var apiCityBikeUrl = "http://api.citybik.es/v2/networks/network_id"; --- Use this url for specific bike station information
+    fetch(apiCityBikeUrl)
+        .then(function (cityBikeResponse) {
+            return cityBikeResponse.json();
+        })
+        .then(function (cityBikeResponse) {
+
+            // Empty Current Bike element for new data
+            bikeEl.textContent = "";
+
+            // Send bike information for display
+            displayBikes(cityBikeResponse);
+
+        })
+}
+
+// Display relevant bike data on page
+var displayBikes = function (bikes) {
+    var bikeArray = bikes.networks;
+    var noBikesFound = true;
+
+    for (let i = 0; i < bikeArray.length; i++) {
+        // Search bike data to find data on requested city name
+        if (bikeArray[i].location.city === cityname) {
+            noBikesFound = false;
+            var bikeDataEl = document.createElement('div');
+            bikeDataEl.className = "card-content"
+            bikeDataEl.innerHTML = "<h2 class='title'>" + cityname + ", " + bikeArray[i].location.country + "</h2>" +
+                "<p><strong>Company:</strong> " + bikeArray[i].company + "</p>" +
+                "<p><strong>Name:</strong> " + bikeArray[i].name + "</p>" +
+                "<p><strong>Latitude:</strong> " + bikeArray[i].location.latitude + "</p>" +
+                "<p><strong>Longitude:</strong> " + bikeArray[i].location.longitude + "</p>" +
+                "<p><strong>ID:</strong> " + bikeArray[i].id + "</p>";
+            bikeEl.appendChild(bikeDataEl);
+        }
+    }
+
+    // If reqested city does not have bikes available
+    if (noBikesFound) {
+        var noBikeDataEl = document.createElement('div');
+        noBikeDataEl.className = "card-content"
+        noBikeDataEl.innerHTML = "<h2 class='title'>" + cityname + "</h2><p>No Bikes Available for " + cityname;
+        bikeEl.appendChild(noBikeDataEl);
     }
 
 }
@@ -30,15 +85,13 @@ var getWeatherInfo = function (cityname) {
             return cityResponse.json();
         })
         .then(function (cityResponse) {
-            // console.log(cityResponse)
 
             // Create variables to hold the latitude and longitude of requested city
             var latitude = cityResponse.coord.lat;
             var longitude = cityResponse.coord.lon;
 
-
             // Empty Current Weather element for new data
-            WeatherEl.textContent = "";
+            weatherEl.textContent = "";
 
             // Return a fetch request to the OpenWeather using longitude and latitude from pervious fetch
             return fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&exclude=alerts,minutely,hourly&units=imperial&appid=f97301447cbd41068af8623a398ba1fb');
@@ -48,8 +101,6 @@ var getWeatherInfo = function (cityname) {
             return weatherResponse.json();
         })
         .then(function (weatherResponse) {
-            // console.log(weatherResponse);
-
             // send response data to displayWeather function for final display 
             displayWeather(weatherResponse);
 
@@ -70,6 +121,7 @@ var displayWeather = function (weather) {
         weatherEl.textContent = "No weather data found.";
         return;
     }
+
     // Create Temperature element
     var dateEl = document.createElement('h4');
     dateEl.className = "title is-4"
@@ -106,7 +158,7 @@ var displayWeather = function (weather) {
     currentDayEl.appendChild(uvIndex);
 
     cardEl.appendChild(currentDayEl);
-    WeatherEl.appendChild(cardEl);
+    weatherEl.appendChild(cardEl);
 
 
     // Get extended forecast data
@@ -131,9 +183,11 @@ var displayWeather = function (weather) {
         dayFooterEl.innerHTML = ""
 
         futureCardEl.appendChild(dayContentEl);
-        WeatherEl.appendChild(futureCardEl);
+        weatherEl.appendChild(futureCardEl);
 
     }
+    // Execute get bike information API
+    getBikeInfo();
 
 }
 
