@@ -26,7 +26,7 @@ var formSubmitHandler = function (event) {
 var getBikeInfo = function () {
     console.log(cityname);
 
-    var apiCityBikeUrl = " http://api.citybik.es/v2/networks?fields=id,name,href,location,company";
+    var apiCityBikeUrl = " https://api.citybik.es/v2/networks?fields=id,name,href,location,company";
     //var apiCityBikeUrl = "http://api.citybik.es/v2/networks/network_id"; --- Use this url for specific bike station information
     fetch(apiCityBikeUrl)
         .then(function (cityBikeResponse) {
