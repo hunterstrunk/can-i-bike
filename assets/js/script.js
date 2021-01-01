@@ -27,7 +27,7 @@ var getBikeInfo = function () {
     console.log(cityname);
 
     var apiCityBikeUrl = " https://api.citybik.es/v2/networks?fields=id,name,href,location,company";
-    //var apiCityBikeUrl = "http://api.citybik.es/v2/networks/network_id"; --- Use this url for specific bike station information
+
     fetch(apiCityBikeUrl)
         .then(function (cityBikeResponse) {
             return cityBikeResponse.json();
@@ -59,7 +59,7 @@ var displayBikes = function (bikes) {
                 "<p><strong>Name:</strong> " + bikeArray[i].name + "</p>" +
                 "<p><strong>Latitude:</strong> " + bikeArray[i].location.latitude + "</p>" +
                 "<p><strong>Longitude:</strong> " + bikeArray[i].location.longitude + "</p>" +
-                "<p><strong>ID:</strong> " + bikeArray[i].id + "</p>";
+                "<p><a href='./bike-stations.html?networkid=" + bikeArray[i].id + "'>Stations Locations</a></p>";
             bikeEl.appendChild(bikeDataEl);
         }
     }
