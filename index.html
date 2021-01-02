@@ -4,25 +4,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Can I Bike</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
+    <title>Can I Bike</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
 <body>
-    <header>
-        
-    </header>
 
+    <!--hero section-->
     <main>
-        <section id="weather">
-
+        <section class="hero is-success">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title is-1">Can I Bike</h1>
+                    <h2 class="subtitle">
+                        Figure out when to ride wherever you are!
+                    </h2>
+                </div>
+            </div>
         </section>
 
-        <section id="bike-info">
+        <!--search area-->
+        <section class="section">
+            <div class="container">
+                <form id="city-form">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input name="city-name" id="city-name" class="input" autofocus="true" type="text"
+                                placeholder="City Name">
+                        </div>
+                        <div class="control">
+                            <button class="button is-info" type="submit">Find City</button>
+                        </div>
 
+                    </div>
+                </form>
+            </div>
+            <br />
+            <div class="container">
+                <!-- Weather Content Area -->
+                <div class="columns">
+                    <div class="column is-info" id="weather">
+                        <div class="card">
+                            <div class="card-content">
+                                <h2 class="title">Weather</h2>
+                                <h3 class="subtitle">Current Weather Conditions</h3>
+                            </div>
+                            <div class="card-footer">
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Bike Content Area -->
+                    <div class="column is-info">
+                        <div class="card" id="bikes">
+                            <div class="card-content">
+                                <h2 class="title">Bike Info</h2>
+                                <h3 class="subtitle">What would you like to ride?</h3>
+                            </div>
+                            <!-- <div class="card-footer">
+                        <div class="card-footer-item">
+                            <a href="#" class="button">button</a>
+                        </div>
+                    </div> -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
+
+    <!-- Page Footer -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            Made by Russ T, Hunter S, and Skylar R
+        </div>
+    </footer>
+
+    <!-- Script Files -->
     <script src="./assets/js/script.js"></script>
 </body>
 
