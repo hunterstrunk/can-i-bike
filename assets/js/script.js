@@ -11,13 +11,15 @@ var formSubmitHandler = function (event) {
     event.preventDefault();
     // get city name value from input element
     cityname = cityNameInputEl.value.trim();
+    cityname = cityname.charAt(0).toUpperCase() + cityname.slice(1); //capitalizes city name if not already
 
     if (cityname) {
         getWeatherInfo(cityname);
         cityNameInputEl.value = "";
+        localStorage.setItem('previousSearch', cityname);
     }
     else {
-        alert("Please enter a City name");
+        cityNameInputEl.placeholder = "Please Enter a Vaild City"; //replaces text place holder
     }
 
 }
