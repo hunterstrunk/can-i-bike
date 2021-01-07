@@ -124,12 +124,23 @@ var displayWeather = function (weather) {
         return;
     }
 
+    
+
     // Create Temperature element
     var dateEl = document.createElement('h4');
     dateEl.className = "title is-4"
     dateEl.innerHTML = dateToday;
     currentDayEl.appendChild(dateEl);
 
+    //create icon element
+    var iconEl = document.createElement('image');
+    var currentWeatherIcon = weather.current.id;
+    console.log(currentWeatherIcon);
+    var currentWeatherDescription = weather.current.description;
+    var currentIconLink = "<img style='margin: -15px 0' src='http://openweathermap.org/img/wn/10d@2x.png' alt='" + currentWeatherDescription + "' title='" + currentWeatherDescription + "'  />"
+    iconEl.className = "image is-64x64";
+    iconEl.innerHTML = currentIconLink;
+    currentDayEl.appendChild(iconEl);
     var temperature = document.createElement('p');
     temperature.innerHTML = "<strong>Temperature:</strong> " + weather.current.temp.toFixed(1) + "°F";
     currentDayEl.appendChild(temperature);
