@@ -1,25 +1,18 @@
 # Can-I-Bike
 
+## Description
 
-## Requirements
-Use a CSS framework other than Bootstrap.
-
-Be deployed to GitHub Pages.
-
-Be interactive (i.e., accept and respond to user input).
-
-Use at least two server-side APIs.
-
-Does not use alerts, confirms, or prompts (use modals).
-
-Use client-side storage to store persistent data.
-
-Be responsive.
-
-Have a polished UI.
-
-Have a clean repository that meets quality coding standards (file structure, naming conventions, follows best practices for class/id naming conventions, indentation, quality comments, etc.).
-
-Have a quality README (with unique name, description, technologies used, screenshot, and link to deployed application)
+*As a biker, I want to know the weather and the amount of rentable bikes in an area I am traveling to, as well as where the bikes can be picked up.
+*When I search a city name, I am given the weather in the city and companies that rent bikes in the area
+*When I look for more information about the companies that rent bikes, I am given the stations in the city where bikes are rented and more information about them
 
 
+## Reasources Used
+
+*HTML
+*Javascript
+*CSS framework called Bulma
+*Open Weather API and City Bikes API
+
+![Screenshot](./assets/images/screenshot.png)
+[Deploy](https://hunterstrunk.github.io/can-i-bike/)
