@@ -148,13 +148,13 @@ var displayWeather = function (weather) {
     var uvIndex = document.createElement('p');
     var uvIndexValue = weather.current.uvi.toFixed(1);
     if (uvIndexValue >= 0) {
-        uvIndex.className = "uv-index-green"
+        uvIndex.className = "uv-index-green";
     }
     if (uvIndexValue >= 3) {
-        uvIndex.className = "uv-index-yellow"
+        uvIndex.className = "uv-index-yellow";
     }
     if (uvIndexValue >= 8) {
-        uvIndex.className = "uv-index-red"
+        uvIndex.className = "uv-index-red";
     }
     uvIndex.innerHTML = "<strong>UV Index:</strong> <span>" + uvIndexValue + "</span>";
     currentDayEl.appendChild(uvIndex);
