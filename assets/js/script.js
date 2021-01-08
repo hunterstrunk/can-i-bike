@@ -11,13 +11,15 @@ var formSubmitHandler = function (event) {
     event.preventDefault();
     // get city name value from input element
     cityname = cityNameInputEl.value.trim();
+    cityname = cityname.charAt(0).toUpperCase() + cityname.slice(1); //capitalizes city name if not already
 
     if (cityname) {
         getWeatherInfo(cityname);
         cityNameInputEl.value = "";
+        localStorage.setItem('previousSearch', cityname);
     }
     else {
-        alert("Please enter a City name");
+        cityNameInputEl.placeholder = "Please Enter a Vaild City"; //replaces text place holder
     }
 
 }
@@ -122,12 +124,23 @@ var displayWeather = function (weather) {
         return;
     }
 
+    
+
     // Create Temperature element
     var dateEl = document.createElement('h4');
     dateEl.className = "title is-4"
     dateEl.innerHTML = dateToday;
     currentDayEl.appendChild(dateEl);
 
+    //create icon element
+    var iconEl = document.createElement('image');
+    var currentWeatherIcon = weather.current.id;
+    console.log(currentWeatherIcon);
+    var currentWeatherDescription = weather.current.description;
+    var currentIconLink = "<img style='margin: -15px 0' src='http://openweathermap.org/img/wn/10d@2x.png' alt='" + currentWeatherDescription + "' title='" + currentWeatherDescription + "'  />"
+    iconEl.className = "image is-64x64";
+    iconEl.innerHTML = currentIconLink;
+    currentDayEl.appendChild(iconEl);
     var temperature = document.createElement('p');
     temperature.innerHTML = "<strong>Temperature:</strong> " + weather.current.temp.toFixed(1) + "°F";
     currentDayEl.appendChild(temperature);
@@ -146,13 +159,13 @@ var displayWeather = function (weather) {
     var uvIndex = document.createElement('p');
     var uvIndexValue = weather.current.uvi.toFixed(1);
     if (uvIndexValue >= 0) {
-        uvIndex.className = "uv-index-green"
+        uvIndex.className = "uv-index-green";
     }
     if (uvIndexValue >= 3) {
-        uvIndex.className = "uv-index-yellow"
+        uvIndex.className = "uv-index-yellow";
     }
     if (uvIndexValue >= 8) {
-        uvIndex.className = "uv-index-red"
+        uvIndex.className = "uv-index-red";
     }
     uvIndex.innerHTML = "<strong>UV Index:</strong> <span>" + uvIndexValue + "</span>";
     currentDayEl.appendChild(uvIndex);
