@@ -26,7 +26,7 @@ var formSubmitHandler = function (event) {
 
 // Get City Bike information
 var getBikeInfo = function () {
-    console.log(cityname);
+    // console.log(cityname);
 
     var apiCityBikeUrl = " https://api.citybik.es/v2/networks?fields=id,name,href,location,company";
 
@@ -104,6 +104,8 @@ var getWeatherInfo = function (cityname) {
         })
         .then(function (weatherResponse) {
             // send response data to displayWeather function for final display 
+
+            // console.log(weatherResponse);
             displayWeather(weatherResponse);
 
         });
@@ -124,23 +126,24 @@ var displayWeather = function (weather) {
         return;
     }
 
-    
 
-    // Create Temperature element
+
+    // Create Date element
     var dateEl = document.createElement('h4');
     dateEl.className = "title is-4"
     dateEl.innerHTML = dateToday;
     currentDayEl.appendChild(dateEl);
 
     //create icon element
-    var iconEl = document.createElement('image');
-    var currentWeatherIcon = weather.current.id;
-    console.log(currentWeatherIcon);
-    var currentWeatherDescription = weather.current.description;
-    var currentIconLink = "<img style='margin: -15px 0' src='http://openweathermap.org/img/wn/10d@2x.png' alt='" + currentWeatherDescription + "' title='" + currentWeatherDescription + "'  />"
-    iconEl.className = "image is-64x64";
+    var iconEl = document.createElement('div');
+    var currentWeatherIcon = weather.current.weather[0].icon;
+    var currentWeatherDescription = weather.current.weather[0].description;
+    var currentIconLink = "<img style='margin: -15px 0' src='http://openweathermap.org/img/wn/" + currentWeatherIcon + "@2x.png' alt='" + currentWeatherDescription + "' title='" + currentWeatherDescription + "'  />"
+    iconEl.className = "image current-image is-64x64";
     iconEl.innerHTML = currentIconLink;
     currentDayEl.appendChild(iconEl);
+
+    // Create Temperature element
     var temperature = document.createElement('p');
     temperature.innerHTML = "<strong>Temperature:</strong> " + weather.current.temp.toFixed(1) + "°F";
     currentDayEl.appendChild(temperature);
@@ -177,8 +180,8 @@ var displayWeather = function (weather) {
     // Get extended forecast data
     var forecastArray = weather.daily;
 
-    // Create day cards for extended forecast
-    for (let i = 0; i < forecastArray.length; i++) {
+    // Create cards for 3 day extended forecast
+    for (let i = 0; i < forecastArray.length - 5; i++) {
         var date = (today.getMonth() + 1) + '/' + (today.getDate() + i + 1) + '/' + today.getFullYear();
         var weatherIcon = forecastArray[i].weather[0].icon;
         var weatherDescription = forecastArray[i].weather[0].description;
