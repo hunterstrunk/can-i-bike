@@ -1,3 +1,5 @@
+var buttonEl = document.querySelector('#home');
+var subtitleEl = document.querySelector('#subtitle');
 var stationEl = document.querySelector('#bike-stations');
 
 var getBikeStationId = function () {
@@ -36,7 +38,7 @@ var getBikeStations = function (bikeStationId) {
 
 // Display relevant bike station data on page
 var displayBikeStations = function (bikeStations) {
-    console.log(bikeStations)
+    // console.log(bikeStations)
     var bikeStationArray = bikeStations.network.stations;
 
 
@@ -59,9 +61,16 @@ var displayBikeStations = function (bikeStations) {
             "<p><strong>Last Updated:</strong> " + (timeUpdated.getMonth() + 1) + "/" + timeUpdated.getDate() + "/" + timeUpdated.getFullYear() + " - " + timeUpdated.getHours() + ":" + timeUpdated.getMinutes() + ":" + timeUpdated.getSeconds().toString() + "</p>" +
             "<p><a href='https://www.google.com/maps/search/?api=1&query=" + bikeStationArray[i].latitude + "," + bikeStationArray[i].longitude + "' target='_blank'>Find on Map</a></p></div>"
         stationEl.appendChild(bikeStationEl);
+        subtitleEl.innerHTML = "Bike Station Locations in " + bikeStations.network.location.city;
 
     }
 
 }
+var home = function () {
+    document.location = 'index.html'
+}
+
+buttonEl.addEventListener("click", home);
 
 getBikeStationId();
+

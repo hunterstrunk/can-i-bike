@@ -1,11 +1,27 @@
-.uv-index-green {
-    color: green;
+.uv-index-green span {
+    background-color: green;
+    padding: 0 5px;
+    border-radius: 7px;
+    color: white;
 }
 
-.uv-index-yellow {
-    color: yellow;
+.uv-index-yellow span {
+    color: rgb(212, 212, 0);
+    padding: 0 5px;
+    border-radius: 7px;
 }
 
-.uv-index-red {
-    color: red;
+.uv-index-red span {
+    color: rgb(196, 3, 3);
+    padding: 0 5px;
+    border-radius: 7px;
+    color: white;
+}
+
+.current-image{
+    float: right;
+}
+
+.card{
+    margin-bottom: 10px;
 }
