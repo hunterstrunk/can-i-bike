@@ -22,4 +22,4 @@
 * Skylar R
 
 ## Site Image
-![Screenshot](assets/images/screenshot.png)
+![alt text](./assets/images/screenshot.PNG)
